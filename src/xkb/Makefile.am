@@ -37,6 +37,7 @@ libxkb_la_SOURCES = \
 	XKBList.c \
 	XKBMisc.c \
 	XKBMAlloc.c \
+	XKBplugin.c \
 	XKBGAlloc.c \
 	XKBAlloc.c \
 	XKBlibint.h
