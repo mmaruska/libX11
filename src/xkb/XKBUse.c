@@ -206,6 +206,10 @@ _XkbNoteCoreMapChanges(XkbMapChangesPtr old,
     return;
 }
 
+/*
+ * mmc: Rewrite xbk event, possibly to a core X event.
+ * EVENT is on wire (xkb event).  RE is where we transfer to (X event).
+ */
 static Bool
 wire_to_event(Display *dpy, XEvent *re, xEvent *event)
 {
@@ -307,8 +311,14 @@ wire_to_event(Display *dpy, XEvent *re, xEvent *event)
             ev->request = MappingKeyboard;
             ev->count = mn->nKeySyms;
             _XkbNoteCoreMapChanges(&xkbi->changes, ev, XKB_XLIB_MAP_MASK);
-            if (xkbi->changes.changed)
-                xkbi->flags |= XkbMapPending;
+            if (xkbi->changes.changed) {
+                /*
+                 * If types change, we need to reload all, otherwise,
+                 * _maybe_ only ...
+                 */
+                xkbi->flags|= XkbMapPending |
+                    ((mn->nTypes != 0)?0:XkbXlibNewKeyboard);
+            }
             return True;
         }
     }
