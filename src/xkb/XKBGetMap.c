@@ -837,6 +837,7 @@ XkbGetKeyVirtualModMap(Display *dpy, unsigned first, unsigned num,
     LockDisplay(dpy);
 
     req = _XkbGetGetMapReq(dpy, xkb);
+    req->partial = XkbVirtualModMapMask; /* mmc! again */
     req->firstVModMapKey = first;
     req->nVModMapKeys = num;
     if ((xkb != NULL) && (xkb->map != NULL) && (xkb->map->modmap != NULL)) {
