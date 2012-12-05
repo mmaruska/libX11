@@ -345,6 +345,7 @@ XkbAddKeyType(XkbDescPtr xkb,
 Status
 XkbResizeKeyType(XkbDescPtr xkb,
                  int type_ndx,
+                 /* mmc: number of mappings: modifier-set -> level */
                  int map_count,
                  Bool want_preserve,
                  int new_num_lvls)
@@ -573,6 +574,7 @@ XkbResizeKeySyms(XkbDescPtr xkb, int key, int needed)
         int nCopy;
 
         nCopy = nKeySyms = XkbKeyNumSyms(xkb, i);
+        /* mmc: I could invert these following 2 IFs: */
         if ((nKeySyms == 0) && (i != key))
             continue;
         if (i == key)
@@ -589,7 +591,8 @@ XkbResizeKeySyms(XkbDescPtr xkb, int key, int needed)
     xkb->map->syms = newSyms;
     xkb->map->num_syms = nSyms;
 
-    /* mmc: we grow the table when needed, and never shrink it. So i decided to test & shrink here: */
+    /* mmc: we grow the table when needed, and never shrink it.
+     * So I decided to test & shrink here: */
     if (xkb->map->size_syms > 2 * xkb->map->num_syms + 64)
        {
                /* mmc: oh this is in the Server! */
