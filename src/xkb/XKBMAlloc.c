@@ -786,6 +786,25 @@ XkbChangeKeycodeRange(XkbDescPtr xkb,
                                                 &changes->map.num_vmodmap_keys);
                 }
             }
+
+            /* mmc: we have to resize server->explicit too. */
+            if (xkb->server->explicit) {
+                unsigned char *prev_explicit = xkb->server->explicit;
+                xkb->server->explicit = _XkbTypedRealloc(xkb->server->explicit,
+                                                (maxKC+1),unsigned char);
+                if (!xkb->server->explicit) {
+                    _XkbFree(prev_explicit);
+                    return BadAlloc;
+                }
+                bzero((char *)&xkb->server->explicit[xkb->max_key_code + 1],
+                      tmp * sizeof(unsigned char));
+                if (changes) {
+                    changes->map.changed= _ExtendRange(changes->map.changed,
+                                                XkbExplicitComponentsMask, maxKC,
+                                                &changes->map.first_key_explicit,
+                                                &changes->map.num_key_explicit);
+                }
+            }
         }
         if ((xkb->names) && (xkb->names->keys)) {
             _XkbResizeArray(xkb->names->keys, xkb->max_key_code + 1,
