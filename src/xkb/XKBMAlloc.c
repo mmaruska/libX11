@@ -588,6 +588,22 @@ XkbResizeKeySyms(XkbDescPtr xkb, int key, int needed)
     _XkbFree(xkb->map->syms);
     xkb->map->syms = newSyms;
     xkb->map->num_syms = nSyms;
+
+    /* mmc: we grow the table when needed, and never shrink it. So i decided to test & shrink here: */
+    if (xkb->map->size_syms > 2 * xkb->map->num_syms + 64)
+       {
+               /* mmc: oh this is in the Server! */
+#ifdef  XKB_IN_SERVER
+#ifdef DEBUG
+          ErrorF("%s: reduction! %d ->%d\n", __FUNCTION__, xkb->map->size_syms, 2 * xkb->map->num_syms + 64);
+#endif
+#endif
+          xkb->map->size_syms = 2 * xkb->map->num_syms + 64;
+          /* xkb->map->num_syms remains! */
+          /* todo: if this fails....!!  hopefully never, we just shrink. */
+          xkb->map->syms = _XkbTypedRealloc(xkb->map->syms, xkb->map->size_syms, KeySym);
+       }
+
     return &xkb->map->syms[xkb->map->key_sym_map[key].offset];
 }
 
