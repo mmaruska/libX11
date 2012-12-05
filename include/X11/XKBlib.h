@@ -789,6 +789,63 @@ extern	Bool	XkbSetControls(
 	XkbDescPtr		/* desc */
 );
 
+#if MMC_PIPELINE || 1
+extern	Bool	XkbSetPlugin(
+        Display *		/* dpy */,
+	unsigned int 		/* deviceSpec */,
+        const char *		        /* filename */,
+        const char *		        /* filename */,
+        Bool
+);
+
+extern int XkbPluginCommand(
+        Display *dpy,
+        unsigned int deviceSpec,
+        int plugin,
+        int len,
+        char *data,
+        int *answer_len,
+        char** answer);
+
+
+/* XkbListPipeline */
+typedef struct _plugin_info
+{
+        int id;
+        char* name;
+} XkbPluginInfo;
+
+typedef struct _XkbPipelineList {
+	int			num_plugins;
+	XkbPluginInfo*   	plugins;
+} XkbPipelineListRec, *XkbPipelineListPtr;
+
+
+extern	XkbPipelineListPtr	XkbListPipeline(
+	Display *		/* dpy */,
+	unsigned int		/* deviceSpec */
+);
+
+extern void
+XkbFreePipelineList(XkbPipelineListPtr list);
+
+
+extern	Bool	XkbPluginConfigure(
+        Display *		/* dpy */,
+	unsigned int 		/* deviceSpec */,
+        unsigned int 		        /* plugin */,
+        int[5]
+);
+
+extern	Bool XkbPluginGetConfigure(
+        Display *		/* dpy */,
+	unsigned int 		/* deviceSpec */,
+        unsigned int		        /* pluginname */,
+        int[5],                    /* what to get config of */
+        int[3]		        /* data */
+);
+#endif /* MMC_PIPELINE */
+
 extern	void	XkbNoteControlsChanges(
     XkbControlsChangesPtr	/* old */,
     XkbControlsNotifyEvent *	/* new */,
