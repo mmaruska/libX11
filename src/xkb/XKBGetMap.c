@@ -522,7 +522,12 @@ _XkbReadGetMapReply(Display *dpy,
     }
     extraData = (int) (rep->length * 4);
     extraData -= (SIZEOF(xkbGetMapReply) - SIZEOF(xGenericReply));
-    if (rep->length) {
+#if 0
+    if (rep->length)
+#else
+    if (extraData)
+#endif
+        {
         XkbReadBufferRec buf;
         int left;
 
