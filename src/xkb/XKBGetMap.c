@@ -737,6 +737,8 @@ XkbGetVirtualMods(Display *dpy, unsigned which, XkbDescPtr xkb)
 
     req = _XkbGetGetMapReq(dpy, xkb);
     req->virtualMods = which;
+    /* mmc:  we want this information, so the mask must be set! */
+    req->partial = XkbVirtualModsMask;
     status = _XkbHandleGetMapReply(dpy, xkb);
 
     UnlockDisplay(dpy);
