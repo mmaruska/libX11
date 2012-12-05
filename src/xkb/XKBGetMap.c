@@ -804,6 +804,7 @@ XkbGetKeyModifierMap(Display *dpy,
     req = _XkbGetGetMapReq(dpy, xkb);
     req->firstModMapKey = first;
     req->nModMapKeys = num;
+    req->partial = XkbModifierMapMask;               /* mmc: once again (see above) */
     if ((xkb != NULL) && (xkb->map != NULL) && (xkb->map->modmap != NULL)) {
         if ((num > 0) && (first >= xkb->min_key_code) &&
             (first + num <= xkb->max_key_code))
