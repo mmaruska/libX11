@@ -840,7 +840,8 @@ XkbGetKeyVirtualModMap(Display *dpy, unsigned first, unsigned num,
     req->partial = XkbVirtualModMapMask; /* mmc! again */
     req->firstVModMapKey = first;
     req->nVModMapKeys = num;
-    if ((xkb != NULL) && (xkb->map != NULL) && (xkb->map->modmap != NULL)) {
+    /* mmc: was bug! */
+    if ((xkb != NULL) && (xkb->server != NULL) && (xkb->server->vmodmap != NULL)) {
         if ((num > 0) && (first >= xkb->min_key_code) &&
             (first + num <= xkb->max_key_code))
             bzero(&xkb->server->vmodmap[first], num * sizeof(unsigned short));
