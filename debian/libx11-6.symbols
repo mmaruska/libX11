@@ -629,6 +629,7 @@ libX11.so.6 libx11-6 #MINVER#
  XkbFreeIndicatorMaps@Base 0
  XkbFreeKeyboard@Base 0
  XkbFreeNames@Base 0
+ XkbFreePipelineList@Base 2:1.5.0-1maruska1
  XkbFreeServerMap@Base 0
  XkbGetAutoRepeatRate@Base 0
  XkbGetAutoResetControls@Base 0
@@ -671,6 +672,7 @@ libX11.so.6 libx11-6 #MINVER#
  XkbLatchModifiers@Base 0
  XkbLibraryVersion@Base 0
  XkbListComponents@Base 0
+ XkbListPipeline@Base 2:1.5.0-1maruska1
  XkbLockGroup@Base 0
  XkbLockModifiers@Base 0
  XkbLookupKeyBinding@Base 0
@@ -680,6 +682,9 @@ libX11.so.6 libx11-6 #MINVER#
  XkbNoteMapChanges@Base 0
  XkbNoteNameChanges@Base 0
  XkbOpenDisplay@Base 0
+ XkbPluginCommand@Base 2:1.5.0-1maruska1
+ XkbPluginConfigure@Base 2:1.5.0-1maruska1
+ XkbPluginGetConfigure@Base 2:1.5.0-1maruska1
  XkbQueryExtension@Base 0
  XkbRefreshKeyboardMapping@Base 0
  XkbResizeDeviceButtonActions@Base 0
@@ -706,6 +711,7 @@ libX11.so.6 libx11-6 #MINVER#
  XkbSetNamedIndicator@Base 0
  XkbSetNames@Base 0
  XkbSetPerClientControls@Base 0
+ XkbSetPlugin@Base 2:1.5.0-1maruska1
  XkbSetServerInternalMods@Base 0
  XkbSetXlibControls@Base 0
  XkbToControl@Base 0
