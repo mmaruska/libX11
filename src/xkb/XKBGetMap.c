@@ -146,6 +146,7 @@ _XkbReadKeySyms(XkbReadBufferPtr buf, XkbDescPtr xkb, xkbGetMapReply *rep)
     if (((unsigned short) rep->firstKeySym + rep->nKeySyms) > size)
         return BadLength;
 
+   if ( rep->totalSyms > 0 ) {    /* mmc: */
     map = xkb->map;
     if (map->key_sym_map == NULL) {
         register int offset;
@@ -234,6 +235,7 @@ _XkbReadKeySyms(XkbReadBufferPtr buf, XkbDescPtr xkb, xkbGetMapReply *rep)
             oldMap->width = newMap->width;
         }
     }
+   }
     return Success;
 }
 
