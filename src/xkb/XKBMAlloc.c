@@ -595,7 +595,7 @@ XkbResizeKeySyms(XkbDescPtr xkb, int key, int needed)
      * So I decided to test & shrink here: */
     if (xkb->map->size_syms > 2 * xkb->map->num_syms + 64)
        {
-               /* mmc: oh this is in the Server! */
+          /* mmc: oh this is in the Server! */
 #ifdef  XKB_IN_SERVER
 #ifdef DEBUG
           ErrorF("%s: reduction! %d ->%d\n", __FUNCTION__, xkb->map->size_syms, 2 * xkb->map->num_syms + 64);
