@@ -604,7 +604,7 @@ XkbResizeKeySyms(XkbDescPtr xkb, int key, int needed)
           xkb->map->size_syms = 2 * xkb->map->num_syms + 64;
           /* xkb->map->num_syms remains! */
           /* todo: if this fails....!!  hopefully never, we just shrink. */
-          xkb->map->syms = _XkbTypedRealloc(xkb->map->syms, xkb->map->size_syms, KeySym);
+          xkb->map->syms = Xreallocarray(xkb->map->syms, xkb->map->size_syms, sizeof(KeySym));
        }
 
     return &xkb->map->syms[xkb->map->key_sym_map[key].offset];
@@ -793,8 +793,8 @@ XkbChangeKeycodeRange(XkbDescPtr xkb,
             /* mmc: we have to resize server->explicit too. */
             if (xkb->server->explicit) {
                 unsigned char *prev_explicit = xkb->server->explicit;
-                xkb->server->explicit = _XkbTypedRealloc(xkb->server->explicit,
-                                                (maxKC+1),unsigned char);
+                xkb->server->explicit = Xreallocarray(xkb->server->explicit,
+                                                      (maxKC+1), sizeof(unsigned char));
                 if (!xkb->server->explicit) {
                     _XkbFree(prev_explicit);
                     return BadAlloc;
@@ -890,8 +890,8 @@ XkbResizeKeyActions(XkbDescPtr xkb, int key, int needed)
 
         /* xkb->server->num_acts remains! */
         /* fixme: if this fails....! */
-        xkb->server->acts = _XkbTypedRealloc(xkb->server->acts, xkb->server->size_acts,
-                                             XkbAction);
+        xkb->server->acts = Xreallocarray(xkb->server->acts, xkb->server->size_acts,
+                                          sizeof(XkbAction));
     }
 
     return &xkb->server->acts[xkb->server->key_acts[key]];
